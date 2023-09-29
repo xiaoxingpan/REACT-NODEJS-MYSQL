@@ -10,39 +10,39 @@ import Form from 'react-bootstrap/Form';
 
 
 function App() {
-  // const []
-  const [auctionList, setAuctionList] = useState([]);
-  const [sellerEmail, setSellerEmail] = useState('');
-  const [itemName, setItemName] = useState('');
-  const [itemDescription, setItemDescription] = useState('');
-  const [initialPrice, setInitialPrice] = useState('');
-  // const [lastBidderEmail, setLastBidderEmail] = useState('');
+  // // const []
+  // const [auctionList, setAuctionList] = useState([]);
+  // const [sellerEmail, setSellerEmail] = useState('');
+  // const [itemName, setItemName] = useState('');
+  // const [itemDescription, setItemDescription] = useState('');
+  // const [initialPrice, setInitialPrice] = useState('');
+  // // const [lastBidderEmail, setLastBidderEmail] = useState('');
 
-  useEffect(() => {
-    Axios.get("http://localhost:3001/api/auctions").then((response) => {
-      setAuctionList(response.data);
-      console.log(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Axios.get("http://localhost:3001/api/auctions").then((response) => {
+  //     setAuctionList(response.data);
+  //     console.log(response.data);
+  //   });
+  // }, []);
 
-  const addAuction = () => {
-    Axios.post("http://localhost:3001/api/auctions", {
-      sellerEmail: sellerEmail,
-      itemName: itemName,
-      itemDescription: itemDescription,
-      lastPrice: initialPrice,
-    });
+  // const addAuction = () => {
+  //   Axios.post("http://localhost:3001/api/auctions", {
+  //     sellerEmail: sellerEmail,
+  //     itemName: itemName,
+  //     itemDescription: itemDescription,
+  //     lastPrice: initialPrice,
+  //   });
 
-    setAuctionList([...auctionList, {
-      sellerEmail: sellerEmail,
-      itemName: itemName,
-      itemDescription: itemDescription,
-      lastPrice: initialPrice,
-      lastBidderEmail: null
-    },
-    ]);
+  //   setAuctionList([...auctionList, {
+  //     sellerEmail: sellerEmail,
+  //     itemName: itemName,
+  //     itemDescription: itemDescription,
+  //     lastPrice: initialPrice,
+  //     lastBidderEmail: null
+  //   },
+  //   ]);
 
-  };
+  // };
 
   return (
     <div className="App">
