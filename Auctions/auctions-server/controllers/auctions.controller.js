@@ -16,6 +16,14 @@ module.exports = {
     addAuction: async (req, res) => {
         try {
             const auction = req.body;
+            const existingAuction = await Auction.findOne({
+                where: { itemName: auction.itemName },
+            });
+
+            if (existingAuction !== null) {
+                return res.status(400).json({ message: `Auction with itemName ${auction.itemName} already exists.` });
+            }
+
             if (validateDataAdd(auction, req, res)) {
                 const addAuction = await Auction.create(auction);
                 res.json(addAuction).status(201);

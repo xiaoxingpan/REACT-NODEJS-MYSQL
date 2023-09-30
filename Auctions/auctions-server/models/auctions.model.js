@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         itemName: {
             type: DataTypes.STRING(100),
+            unique: true,
             allowNull: false
         },
         itemDescription: {
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         lastPrice: {
-            type: DataTypes.DECIMAL,
+            type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
         lastBidderEmail: {

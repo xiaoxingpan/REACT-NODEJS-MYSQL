@@ -9,6 +9,8 @@ const cors = require("cors");
 app.use(cors());
 // parse requests of content-type - application/json
 app.use(express.json());
+// const bodyParser = require('body-parser');
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // // allow frontend app at http://localhost:3000 to make requests to backend at http://localhost:3001
 // var corsOptions = {
@@ -16,13 +18,6 @@ app.use(express.json());
 // };
 
 const db = require("./models");
-
-// app.get('/', (req, res) => {
-
-//     console.log("index");
-//     res.status(200).send("Internal Server Error");
-
-// });
 
 // define the routes, should after corsOptions
 const auctionRouter = require('./routes/auctions.routes.js');
