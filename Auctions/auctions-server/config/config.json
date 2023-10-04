@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Welcome",
-    "database": "auctionsdb",
+    "database": "reactAuctions",
     "host": "localhost",
     "dialect": "mysql"
   },
