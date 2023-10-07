@@ -7,7 +7,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 router.get("/", itemController.findAllItems);
 
 // Create a new item
-router.post("/", validateToken, itemController.addItem);
+router.post("/", itemController.addItem);
 
 // Retrieve a single item with id
 router.get("/:id([0-9]+)", itemController.findOneItemById);

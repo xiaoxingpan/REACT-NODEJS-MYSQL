@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Nav, Navbar, NavDropdown, Row, Button, } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "./helpers/AuthContext";
+import { AuthContext } from "../helpers/AuthContext";
+import IsLoginComponent from "./isLogin";
 
 
 function NavbarComponent() {
@@ -22,6 +23,7 @@ function NavbarComponent() {
 
     return (
         <div>
+
             <Navbar bg="dark" data-bs-theme="dark" expand="lg">
                 <Container>
                     <Navbar.Brand href="/">Bid All</Navbar.Brand>
@@ -41,20 +43,20 @@ function NavbarComponent() {
                     </AuthContext.Provider>
 
                     // showup when sign in
-                    {localStorage.getItem("acessToken") && (
-                        <><Navbar.Text className="px-3">
-                            Signed in as: <a href="#login">Mark Otto</a>
-                        </Navbar.Text>
-                            <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{ color: 'white' }}>
-                                <NavDropdown.Item href="/">Manage Auction</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">Manage Users</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">Bid</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
-                                    Logout
-                                </NavDropdown.Item>
-                            </NavDropdown></>
-                    )}
+
+                    <><Navbar.Text className="px-3">
+                        Signed in as: <a><IsLoginComponent /></a>
+                    </Navbar.Text>
+                        <NavDropdown title="Dropdown" id="basic-nav-dropdown" style={{ color: 'white' }}>
+                            <NavDropdown.Item href="/">Manage Auction</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Manage Users</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Bid</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#action/3.4">
+                                Logout
+                            </NavDropdown.Item>
+                        </NavDropdown></>
+
 
                 </Container>
             </Navbar>

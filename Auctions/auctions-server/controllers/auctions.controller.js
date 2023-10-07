@@ -4,15 +4,15 @@ const itemsController = require('./items.controller');
 
 module.exports = {
     findAll: async (req, res) => {
-        try {
-            const auctions = await Auction.findAll();
-            console.log(auctions);
-            res.json(auctions).status(200);
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: 'Controllers: Internal Server Error' });
-        }
+        await Auction.findAll()
+            .then((auctions) => {
+                console.log(auctions);
+                res.json(auctions).status(200);
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({ message: 'Controllers: Internal Server Error' });
+            })
     },
     addAuction: async (req, res) => {
         try {
@@ -50,28 +50,30 @@ module.exports = {
         }
     },
     findOneByAuctionId: async (req, res) => {
-        try {
-            const id = req.params.id;
-            const auction = await Auction.findByPk(id);
-            res.json(auction).status(200);
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: 'Controllers: Internal Server Error' });
-        }
+        const id = req.params.id;
+        await Auction.findByPk(id)
+            .then((auction) => {
+                res.json(auction).status(200);
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({ message: 'Controllers: Internal Server Error' });
+            })
     },
     findOneByItemId: async (req, res) => {
-        try {
-            const id = req.params.id;
-            const auctions = await Auction.findAll({
-                where: {
-                    itemId: id,
-                },
-                order: [['createdAt', 'DESC']],
-            });
-            res.json(auctions).status(200);
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: 'Controllers: Internal Server Error' });
-        }
+        const id = req.params.id;
+        await Auction.findAll({
+            where: {
+                itemId: id,
+            },
+            order: [['createdAt', 'DESC']],
+        })
+            .then((auctions) => {
+                res.json(auctions).status(200);
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({ message: 'Controllers: Internal Server Error' });
+            })
     },
 }

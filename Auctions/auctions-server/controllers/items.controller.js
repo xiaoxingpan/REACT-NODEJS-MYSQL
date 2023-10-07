@@ -1,20 +1,19 @@
 const { Item } = require('../models');
 const validator = require('validator');
 const moment = require('moment-timezone');
-const auctionsController = require('./auctions.controller');
 moment.tz.setDefault('UTC');
 
 module.exports = {
     findAllItems: async (req, res) => {
-        try {
-            const items = await Item.findAll();
-            console.log(items);
-            res.json(items).status(200);
-
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: 'Controllers: Internal Server Error' });
-        }
+        const items = await Item.findAll()
+            .then((items) => {
+                console.log(items);
+                res.json(items).status(200);
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({ message: 'Controllers: Internal Server Error' });
+            })
     },
     addItem: async (req, res) => {
         try {
@@ -61,30 +60,30 @@ module.exports = {
                 return res.status(400).json({ message: `Controllers: Item with id ${id} doesn't exist.` });
             }
 
-            // if (newBid.lastPrice < currentPrice) {
-            //     return res.status(400).json({ message: `Controllers: bid must higher than lastBidPrice ${currentPrice}.` });
-            // }
-            // if (!validator.isEmail(newBid.lastBidderEmail)) {
-            //     return res.status(400).json({ message: 'Controllers: lastBidderEmail must be valid.' });
+            // initialPrice can't change one bid started
+            const response = await fetch(`http://localhost:3001/auctions/item/${id}`);
 
-            // }
+            if (response.status === 200) {
+                const existAuction = await response.json();
 
-            const existAuction = await auctionsController.findOneByItemId(id);
-            if (existAuction === null) {
-                item.initialPrice = updateItem.initialPrice;
+                if (existAuction.length === 0) {
+                    item.initialPrice = updateItem.initialPrice;
+                } else {
+                    return res.status(200).json({ message: 'Controllers: initialPrice can not be updated once the bid started' });
+                }
+                // FIXME: ENDDATE SHOULD BE LATEST BID CREATE DATE OR LATER
+                // FIXME: CANNOT UPDATE ONCE ENDDATE PASSED
+                item.sellerEmail = updateItem.sellerEmail;
+                item.itemName = updateItem.itemName;
+                item.itemDescription = updateItem.itemDescription;
+                item.endDate = updateItem.endDate;
+
+                if (validateDataAdd(item, req, res)) {
+                    const updateItem = item.save();
+                    res.status(200).json(item);
+                }
             } else {
-                res.status(200).json({ message: 'Controllers: initialPrice can not be updated once the bid started' });
-            }
-            // FIXME: ENDDATE SHOULD BE LATEST BID CREATE DATE OR LATER
-            // FIXME: CANNOT UPDATE ONCE ENDDATE PASSED
-            item.sellerEmail = updateItem.sellerEmail;
-            item.itemName = updateItem.itemName;
-            item.itemDescription = updateItem.itemDescription;
-            item.endDate = updateItem.endDate;
-
-            if (validateDataAdd(item, req, res)) {
-                const updateItem = item.save();
-                res.status(200).json(newBid);
+                return res.status(500).json({ message: 'Controllers: Internal Server Error' });
             }
         } catch (error) {
             console.log(error);

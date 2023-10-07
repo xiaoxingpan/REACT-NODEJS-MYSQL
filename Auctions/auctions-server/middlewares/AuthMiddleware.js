@@ -11,9 +11,8 @@ const validateToken = (req, res, next) => {
 
     try {
         const validToken = verify(accessToken, "importantsecret");
-        req.user = validToken; // pass the userName and userId to front-end
-
         if (validToken) {
+            req.userId = decoded.id; // pass the userName and userId to front-end
             return next();
         }
         else {

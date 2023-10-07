@@ -13,7 +13,8 @@ function LoginComponent() {
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const { setAuthState } = useContext(AuthContext);
+    // const { setAuthState } = useContext(AuthContext);
+    const [loginStatus, setLoginStatus] = useState("");
     const navigate = useNavigate();
     const navigateToHome = () => {
         navigate('/');
@@ -33,7 +34,7 @@ function LoginComponent() {
                     alert(response.data.message); // Display success message or token
                     localStorage.setItem("accessToken", response.data.token);
                     localStorage.setItem('userId', response.data.userId);
-                    setAuthState(true);
+                    // setAuthState(true);
                     navigateToHome();
                 }
             })
