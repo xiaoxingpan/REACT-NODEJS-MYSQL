@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Container, Row, Form, Button, } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 export default NewBidComponent;

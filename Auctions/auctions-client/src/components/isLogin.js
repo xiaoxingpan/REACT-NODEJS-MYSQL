@@ -6,6 +6,7 @@ function IsLoginComponent() {
 
     Axios.defaults.withCredentials = true;
     const [loginStatus, setLoginStatus] = useState("");
+    const [role, setRole] = useState("");
 
 
     // everytime fresh the page, got the login info
@@ -13,15 +14,16 @@ function IsLoginComponent() {
         Axios.get("http://localhost:3001/login").then((response) => {
             if (response.data.loggedIn == true) {
                 setLoginStatus(response.data.user['userName']);
+                setRole(response.data.user['role']);
                 console.log(response.data.user);
                 console.log();
 
             }
         });
-    }, [setLoginStatus]);
+    }, [setLoginStatus], [setRole]);
 
     return (
-        <div>{loginStatus}</div>
+        <div></div>
     )
 }
 export default IsLoginComponent;

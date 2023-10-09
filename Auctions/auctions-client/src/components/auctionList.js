@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
+import { Container, Row, Table, Button, } from 'react-bootstrap';
 import NewBidComponent from '../components/newBid';
 
 function AuctionListComponent() {

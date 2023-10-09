@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Table from 'react-bootstrap/Table';
+import { Container, Row, Table, } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function BidHistoryForOneComponent() {

@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as Yup from 'yup';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Container, Form, Button, } from 'react-bootstrap';
+
 
 function SignupComponent() {
 
