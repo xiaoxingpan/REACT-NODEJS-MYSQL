@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button, } from 'react-bootstrap';
@@ -11,8 +11,8 @@ function LoginComponent() {
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    // const { setAuthState } = useContext(AuthContext);
-    const [loginStatus, setLoginStatus] = useState("");
+
+    const { setLoginStatus, setUsername, setRole, setUserId } = useContext(AuthContext);
     const navigate = useNavigate();
     const navigateToHome = () => {
         navigate('/');
@@ -31,8 +31,13 @@ function LoginComponent() {
                 } else if (response.data.message) {
                     alert(response.data.message); // Display success message or token
                     localStorage.setItem("accessToken", response.data.token);
-                    localStorage.setItem('userId', response.data.userId);
-                    // setAuthState(true);
+                    setLoginStatus(true);
+                    console.log("==========login");
+                    console.log(response.data.userInfo.userName);
+                    setUsername(response.data.userInfo.userName);
+                    setRole(response.data.userInfo.role);
+                    setUserId(response.data.userInfo.userId);
+                    // localStorage.setItem('userId', response.data.userId);
                     navigateToHome();
                 }
             })

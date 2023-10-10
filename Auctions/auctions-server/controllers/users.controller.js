@@ -69,12 +69,14 @@ module.exports = {
                         console.log(existingUser.dataValues);
                         // generate a token and pass it to the front-end
                         const accessToken = sign({ userName: user.userName, id: existingUser.id }, "importantsecret", { expiresIn: "1d" });
+                        res.cookie("token", accessToken, { maxAge: 86400000, httpOnly: true });  // maxAge=1d                        
                         res.status(201).json({
                             message: `You are logged in as ${user.userName}.`,
                             token: accessToken,
-                            userId: existingUser.dataValues.userId// pass the userId to the front-end
+                            userInfo: existingUser.dataValues// pass the userId to the front-end
+
                         });
-                        // res.cookie("token", accessToken, { maxAge: 86400000, httpOnly: true });  // maxAge=1d
+
                     })
                     .catch((error) => {
                         console.error(error);

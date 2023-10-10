@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Form, Button, } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from "../helpers/AuthContext";
 import * as Yup from 'yup';
 export default NewBidComponent;
 
@@ -11,6 +12,8 @@ function NewBidComponent({ newBid, onClose }) {
     let { itemId } = useParams();
     const [newPrice, setNewPrice] = useState('');
     const [lastPrice, setLastPrice] = useState('');
+    const { userId } = useContext(AuthContext);
+
 
     // find lastPrice
     useEffect(() => {
@@ -59,10 +62,12 @@ function NewBidComponent({ newBid, onClose }) {
                 // Check if the value is a valid decimal with up to two decimal places
                 return /^\d+(\.\d{0,2})?$/.test(value);
             }),
+        userId: Yup
+            .number("not a number")
     });
 
     const placeBid = (itemId) => {
-        // var userId = localStorage.getItem("userId");
+        console.log(userId);
         if (newPrice < lastPrice) {
             console.error("New price must be higher than the last price.");
             setNewPrice('');
@@ -77,7 +82,7 @@ function NewBidComponent({ newBid, onClose }) {
                 Axios.post('http://localhost:3001/auctions/', {
                     price: newPrice,
                     itemId: itemId,
-                    // userId: userId,
+                    userId: userId,
                 },
                     {
                         headers: {
@@ -91,7 +96,7 @@ function NewBidComponent({ newBid, onClose }) {
                         }
                         // Handle the response if needed
                         console.log(response.data);
-                        window.location.reload();
+                        // window.location.reload();
                     })
                     .catch((error) => {
                         // Handle errors

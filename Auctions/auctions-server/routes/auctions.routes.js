@@ -7,7 +7,7 @@ const { validateToken } = require("../middlewares/AuthMiddleware");
 router.get("/", validateToken, auctionController.findAll);
 
 // Create a new auction
-router.post("/", validateToken, auctionController.addAuction);
+router.post("/", auctionController.addAuction);
 
 // Retrieve a single auction with auctionId
 router.get("/:id([0-9]+)", validateToken, auctionController.findOneByAuctionId);

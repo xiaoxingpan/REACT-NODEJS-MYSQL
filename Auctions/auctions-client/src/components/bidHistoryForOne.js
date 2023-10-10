@@ -5,9 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Table, } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
+
 function BidHistoryForOneComponent() {
     let { itemId } = useParams();
     const [auctionList, setAuctionList] = useState([]);
+
 
     useEffect(() => {
         Axios.get(`http://localhost:3001/auctions/item/${itemId}`, {
